@@ -1,7 +1,7 @@
 // the final fetch wrapper
 import _ from 'lodash'
 import {notification} from 'antd'
-
+const log = console
 const jsonHeader = {
   'Accept': 'application/json',
   'Content-Type': 'application/json'
@@ -28,7 +28,7 @@ export async function handleErr(res) {
     message: 'error',
     placement: 'bottomRight',
     description: (
-      <div className="common-err">
+      <div className='common-err'>
         {text}
       </div>
     ),
