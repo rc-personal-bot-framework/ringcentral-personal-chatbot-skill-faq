@@ -12,6 +12,7 @@ const store = SubX.create({
   loading: false,
   async add (faq) {
     let res = await fetch.post(url, {
+      action: 'add',
       update: faq
     })
     if (res && res.result) {
@@ -22,6 +23,7 @@ const store = SubX.create({
   },
   async del (id) {
     let res = await fetch.post(url, {
+      action: 'del',
       id
     })
     if (res && res.result) {
@@ -32,6 +34,7 @@ const store = SubX.create({
   },
   async update (id, update) {
     let res = await fetch.post(url, {
+      action: 'update',
       id,
       update
     })

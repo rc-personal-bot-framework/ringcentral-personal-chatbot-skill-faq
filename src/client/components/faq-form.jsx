@@ -23,15 +23,16 @@ class AddFaq extends Component {
     })
   }
 
-  submit = async () => {
+  submit = async (e) => {
+    e.preventDefault()
     let res = await this.validateFieldsAndScroll()
     if (!res) {
       return
     }
     this.props.onSubmit(res, () => {
       this.setState({
-        faq: {}
-      })
+        faq: copy(this.props.faq || {})
+      }, () => this.props.form.resetFields())
     })
   }
 
@@ -40,61 +41,69 @@ class AddFaq extends Component {
     let { keywords, answer } = this.state.faq
     return (
       <Spin spinning={this.props.submitting}>
-        <Form layout='vertical'>
+        <Form layout='vertical' onSubmit={this.submit}>
           <Row>
             <Col span={9}>
-              <FormItem label='Keywords'>
-                {
-                  getFieldDecorator('keywords', {
-                    initialValue: keywords,
-                    rules: [
-                      {
-                        required: true,
-                        message: 'Please input your keywords, seprate by space'
-                      }
-                    ]
-                  })(
-                    <Input.TextArea />
-                  )
-                }
-              </FormItem>
+              <div className='pd1x pd1y'>
+                <FormItem label='Keywords(split by ",")'>
+                  {
+                    getFieldDecorator('keywords', {
+                      initialValue: keywords,
+                      rules: [
+                        {
+                          required: true,
+                          message: 'Please input your keywords, seprate by space'
+                        }
+                      ]
+                    })(
+                      <Input.TextArea />
+                    )
+                  }
+                </FormItem>
+              </div>
             </Col>
             <Col span={10}>
-              <FormItem label='Answer'>
-                {
-                  getFieldDecorator('answer', {
-                    initialValue: answer,
-                    rules: [
-                      {
-                        required: true,
-                        message: 'Please input your Answer'
-                      }
-                    ]
-                  })(
-                    <Input.TextArea />
-                  )
-                }
-              </FormItem>
+              <div className='pd1x pd1y'>
+                <FormItem label='Answer'>
+                  {
+                    getFieldDecorator('answer', {
+                      initialValue: answer,
+                      rules: [
+                        {
+                          required: true,
+                          message: 'Please input your Answer'
+                        }
+                      ]
+                    })(
+                      <Input.TextArea />
+                    )
+                  }
+                </FormItem>
+              </div>
             </Col>
             <Col span={5}>
-              <Button
-                htmlType='submit'
-                type='primary'
-              >
-                {this.props.submitText}
-              </Button>
-              {
-                this.props.onCancel
-                  ? (
-                    <Button
-                      type='ghost'
-                      onClick={this.props.onCancel}
-                    >
-                      Cancel
-                    </Button>
-                  )
-                  : null
-              }
+              <div className='pd1x pd1y'>
+                <Button
+                  htmlType='submit'
+                  type='primary'
+                  className='faq-sub'
+                >
+                  {this.props.submitText}
+                </Button>
+                {
+                  this.props.onCancel
+                    ? (
+                      <Button
+                        type='ghost'
+                        className='faq-sub'
+                        onClick={this.props.onCancel}
+                      >
+                        Cancel
+                      </Button>
+                    )
+                    : null
+                }
+              </div>
             </Col>
           </Row>
         </Form>

@@ -8,11 +8,11 @@ export default class AddFaq extends Component {
   }
 
   onSubmit = async (update, callback) => {
-    this.state({
+    this.setState({
       loading: true
     })
     let res = await this.props.store.add(update)
-    this.state({
+    this.setState({
       loading: false
     })
     if (res && callback) {

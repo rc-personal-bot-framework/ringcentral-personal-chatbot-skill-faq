@@ -19,16 +19,16 @@ export default class Faqs extends Component {
   }
 
   submit = async (update, callback) => {
-    this.state({
+    this.setState({
       updating: true
     })
     let res = await this.props.store.update(
       this.props.faq.id,
       update
     )
-    this.state({
+    this.setState({
       updating: false,
-      editting: res
+      editting: !res
     })
     if (res && callback) {
       callback()
@@ -50,6 +50,7 @@ export default class Faqs extends Component {
             faq={this.props.faq}
             onSubmit={this.submit}
             onCancel={this.cancelEdit}
+            submitText='Update'
           />
         </div>
       </Spin>
@@ -61,22 +62,28 @@ export default class Faqs extends Component {
     return (
       <Spin spinning={this.state.updating}>
         <Row className='faq-item'>
-          <Col span={8}>{keywords}</Col>
-          <Col span={10}>{answer}</Col>
+          <Col span={8}>
+            <div className='pd1x pd1y'>{keywords}</div>
+          </Col>
+          <Col span={10}>
+            <div className='pd1x pd1y'>{answer}</div>
+          </Col>
           <Col span={6} className='faq-op'>
-            <Icon
-              type='edit'
-              className='font16 mg1l pointer'
-              onClick={this.edit}
-            />
-            <Popconfirm
-              onConfirm={this.del}
-            >
+            <div className='pd1x pd1y'>
               <Icon
-                type='minus'
-                className='font16 color-red mg1l pointer'
+                type='edit'
+                className='font16 mg1l pointer'
+                onClick={this.edit}
               />
-            </Popconfirm>
+              <Popconfirm
+                onConfirm={this.del}
+              >
+                <Icon
+                  type='minus-circle'
+                  className='font16 color-red mg1l pointer'
+                />
+              </Popconfirm>
+            </div>
           </Col>
         </Row>
       </Spin>

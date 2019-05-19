@@ -4,9 +4,9 @@
   "description": "Bot skill: FAQ, respond to any keywords user defined with corresponding answer",
   "main": "dist/server/index.js",
   "scripts": {
-    "ngrok": "ngrok http -region ap 6067",
-    "ngrok-p": "ngrok http -region ap 4101",
-    "start": "node -r @babel/register bin/rcpf.js example-bots/hello.js",
+    "ngrok": "ngrok http -region ap 6066",
+    "ngrok-p": "ngrok http -region ap 4100",
+    "start": "node -r @babel/register ./node_modules/.bin/rcpf build/test-bot.js",
     "c": "webpack-dev-server --open --progress --colors --config build/webpack.config.babel.js",
     "compile": "babel src/server --out-dir dist/server",
     "release": "cross-env NODE_ENV=production ./node_modules/.bin/webpack --progress --colors --config build/webpack.config.babel.js",
@@ -61,10 +61,11 @@
   },
   "dependencies": {
     "json-deep-copy": "^1.0.2",
-    "pug": "^2.0.3"
+    "pug": "^2.0.3",
+    "shortid": "^2.2.14"
   },
   "peerDependencies": {
-    "ringcentral-personal-chatbot": "*"
+    "ringcentral-personal-chatbot": "0.3.5"
   },
   "standard": {
     "parser": "babel-eslint",

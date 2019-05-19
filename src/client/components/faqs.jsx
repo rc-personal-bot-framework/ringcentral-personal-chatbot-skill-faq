@@ -17,7 +17,7 @@ export default class Faqs extends Component {
       return this.empty()
     }
     return (
-      <div className='pd1b'>
+      <div className='pd1b faq-items'>
         {
           this.props.store.faqs.map(faq => {
             return <Faq key={faq.id} faq={faq} store={store} />

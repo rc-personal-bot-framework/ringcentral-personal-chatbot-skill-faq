@@ -1,5 +1,4 @@
 import { Component } from 'react-subx'
-import { Button, Table } from 'antd'
 import AddFaq from './add-faq'
 import Faqs from './faqs'
 
