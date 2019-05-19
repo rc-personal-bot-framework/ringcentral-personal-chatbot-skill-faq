@@ -1,6 +1,6 @@
 # ringcentral-personal-chatbot-skill-faq
 
-Simple FAQ bot matching by keywords.
+Simple FAQ bot matching by keywords for [ringcentral-personal-chatbot-js](https://github.com/rc-personal-bot-framework/ringcentral-personal-chatbot-js).
 
 ![ ](screenshots/setting.png)
 ![ ](screenshots/s1.png)
@@ -63,3 +63,15 @@ node -r dotenv/config bin/rcpf.js example-bots/hello.js
 # proxy for production code
 npm run ngrok-p
 ```
+
+## How to use a bot skill
+
+[https://github.com/rc-personal-bot-framework/ringcentral-personal-chatbot-js/blob/master/docs/write-use-a-skill.md](https://github.com/rc-personal-bot-framework/ringcentral-personal-chatbot-js/blob/master/docs/write-use-a-skill.md)
+
+## Real bot using FAQ skill
+
+[https://github.com/rc-personal-bot-framework/ringcentral-personal-bot-template-js](https://github.com/rc-personal-bot-framework/ringcentral-personal-bot-template-js)
+
+## License
+
+MIT
