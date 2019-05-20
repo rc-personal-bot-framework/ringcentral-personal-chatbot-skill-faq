@@ -65,7 +65,7 @@
     "shortid": "^2.2.14"
   },
   "peerDependencies": {
-    "ringcentral-personal-chatbot": "0.3.14"
+    "ringcentral-personal-chatbot": "0.3.15"
   },
   "standard": {
     "parser": "babel-eslint",
