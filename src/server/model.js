@@ -22,5 +22,12 @@ export default sequelize.define('faq', {
   enabled: {
     type: Sequelize.BOOLEAN,
     defaultValue: true
+  },
+  data: {
+    type: Sequelize.JSON
+  },
+  count: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0
   }
 })
