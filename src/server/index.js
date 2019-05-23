@@ -25,6 +25,7 @@ export const onPostAdd = async ({
   if (handled) {
     return false
   }
+  await Faq.sync()
   let faqs = await Faq.findAll({
     where: {
       user_id: user.id
