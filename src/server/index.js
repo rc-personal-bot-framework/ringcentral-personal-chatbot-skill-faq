@@ -56,6 +56,7 @@ export const onPostAdd = async ({
       .reduce((p, k) => {
         return p + `* ${k}\n`
       }, '')
+    cmds = cmds || 'No keywords yet'
     res = `**Keywords list:**\n${cmds}`
   }
   if (res) {
