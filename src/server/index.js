@@ -34,12 +34,29 @@ export const onPostAdd = async ({
     plain: true
   }))
   let res = ''
+
   for (let faq of faqs) {
     let ks = faq.keywords.split(',').map(r => r.trim())
     if (hasKeywords(ks, textFiltered)) {
       res = faq.answer
+      await Faq.update({
+        count: (faq.count || 0) + 1
+      }, {
+        where: {
+          id: faq.id
+        }
+      })
       break
     }
+  }
+  if (!res && textFiltered === 'faq-help') {
+    let cmds = faqs
+      .sort((a, b) => b.count - a.count)
+      .map(f => f.keywords)
+      .reduce((p, k) => {
+        return p + `* ${k}\n`
+      }, '')
+    res = `**Keywords list:**\n${cmds}`
   }
   if (res) {
     let sign = shouldUseSignature

@@ -86,7 +86,7 @@ class AddFaq extends Component {
                 <Button
                   htmlType='submit'
                   type='primary'
-                  className='faq-sub'
+                  className='faq-sub mg1r'
                 >
                   {this.props.submitText}
                 </Button>

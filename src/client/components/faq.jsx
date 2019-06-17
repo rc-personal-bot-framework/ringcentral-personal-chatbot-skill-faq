@@ -58,15 +58,22 @@ export default class Faqs extends Component {
   }
 
   renderView () {
-    let { keywords, answer } = this.props.faq
+    let { keywords, answer, count } = this.props.faq
+    let { index } = this.props
     return (
       <Spin spinning={this.state.updating}>
         <Row className='faq-item'>
-          <Col span={8}>
+          <Col span={1}>
+            <div className='pd1x pd1y'>{index + 1}</div>
+          </Col>
+          <Col span={7}>
             <div className='pd1x pd1y'>{keywords}</div>
           </Col>
-          <Col span={10}>
+          <Col span={9}>
             <div className='pd1x pd1y'>{answer}</div>
+          </Col>
+          <Col span={1}>
+            <div className='pd1x pd1y'>{count}</div>
           </Col>
           <Col span={6} className='faq-op'>
             <div className='pd1x pd1y'>

@@ -16,6 +16,7 @@ cd ringcentral-personal-chatbot-skill-faq
 
 # install dependecies
 npm i
+npm i --no-save ringcentral-personal-chatbot
 
 # start proxy server, this will make your local bot server can be accessed by RingCentral service
 npm run ngrok
