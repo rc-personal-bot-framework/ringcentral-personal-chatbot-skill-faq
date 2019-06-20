@@ -10,6 +10,7 @@ export default class App extends Component {
         <h1>FAQ skill setting</h1>
         <p>Any one send you message that includes <b>keywords</b>, bot will send corresponding <b>answer</b>.</p>
         <p>Any one send you message <b className='color-red'>faq-help</b>, bot will send keywords list.</p>
+        <p>keywords wrapped with <b className='color-red'>"</b>, like <b className='color-red'>"some keywords"</b> will match the whole message.</p>
         <AddFaq store={store} />
         <Faqs store={store} />
       </div>

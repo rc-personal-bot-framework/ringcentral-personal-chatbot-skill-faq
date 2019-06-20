@@ -5,9 +5,26 @@ export const name = 'Bot skill: FAQ'
 export const description = 'Respond to any keywords user defined with corresponding answer'
 export const homepage = 'https://github.com/rc-personal-bot-framework/ringcentral-personal-chatbot-skill-faq#readme'
 
+function dequote (str = '') {
+  return str.slice(1, -1)
+}
+
+function check (str, all) {
+  if (/^[\u4e00-\u9fa5]+$/.test(str)) {
+    return all.includes(str)
+  }
+  return new RegExp(`(^|(\\s+))${str}((\\s+)|$)`).test(all)
+}
+
 function hasKeywords (ks, txt) {
   for (let k of ks) {
-    if (txt.includes(k)) {
+    if (
+      (k.startsWith('"') && k.endsWith('"') && txt === dequote(k)) ||
+      (
+        (!k.startsWith('"') || !k.endsWith('"')) &&
+        check(k, txt)
+      )
+    ) {
       return true
     }
   }

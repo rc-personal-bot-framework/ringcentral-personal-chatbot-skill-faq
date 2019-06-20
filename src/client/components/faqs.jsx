@@ -126,6 +126,7 @@ export default class Faqs extends Component {
           <Table
             dataSource={src}
             columns={columns}
+            rowKey='id'
           />
         </Spin>
       </div>
