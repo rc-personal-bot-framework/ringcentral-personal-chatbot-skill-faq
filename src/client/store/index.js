@@ -2,7 +2,7 @@ import SubX from 'subx'
 import fetch from '../components/fetch'
 import _ from 'lodash'
 
-const url = '/skill/faq/op'
+const url = window.rc.server + '/skill/faq/op'
 const store = SubX.create({
   logined: !!window.rc.user,
   user: window.rc.user,

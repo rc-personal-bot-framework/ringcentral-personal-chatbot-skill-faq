@@ -13,6 +13,8 @@ const pack = require(resolve(__dirname, '../../package.json'))
 const viewPath = resolve(__dirname, '../views/index.pug')
 const staticPath = resolve(__dirname, '../../dist/static')
 
+const { RINGCENTRAL_CHATBOT_SERVER } = process.env
+
 export default (app) => {
   app.use(
     express.static(staticPath)
@@ -37,7 +39,8 @@ export default (app) => {
       title: pack.name,
       sessionId: sid,
       faqs,
-      version: pack.version
+      version: pack.version,
+      server: RINGCENTRAL_CHATBOT_SERVER
     }
     data._global = copy(data)
     res.render(viewPath, data)
