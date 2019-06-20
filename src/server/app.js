@@ -8,12 +8,13 @@ import { generate } from 'shortid'
 import copy from 'json-deep-copy'
 import _ from 'lodash'
 import express from 'express'
+import prefix from 'ringcentral-personal-chatbot/dist/server/common/extra-path'
 
 const pack = require(resolve(__dirname, '../../package.json'))
 const viewPath = resolve(__dirname, '../views/index.pug')
 const staticPath = resolve(__dirname, '../../dist/static')
 
-const { RINGCENTRAL_CHATBOT_SERVER } = process.env
+const { RINGCENTRAL_CHATBOT_SERVER, SERVER_HOME } = process.env
 
 export default (app) => {
   app.use(
@@ -24,7 +25,7 @@ export default (app) => {
     let { user, id: sid } = req.session || {}
     let { id } = user || {}
     if (!id) {
-      return res.redirect('/')
+      return res.redirect(prefix + SERVER_HOME)
     }
     await Faq.sync()
     let faqs = await Faq.findAll({
