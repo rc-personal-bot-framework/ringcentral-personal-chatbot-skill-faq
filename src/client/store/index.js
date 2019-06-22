@@ -4,12 +4,22 @@ import _ from 'lodash'
 
 const url = window.rc.server + '/skill/faq/op'
 const store = SubX.create({
-  logined: !!window.rc.user,
-  user: window.rc.user,
   botInfo: window.rc.botInfo,
-  faqs: window.rc.faqs,
-
+  faqs: [],
+  fetchingUser: false,
   loading: false,
+  async list () {
+    store.fetchingUser = true
+    let res = await fetch.post(url, {
+      action: 'list'
+    })
+    store.fetchingUser = false
+    if (res && res.result) {
+      store.faqs = res.result
+      return true
+    }
+    return false
+  },
   async add (faq) {
     let res = await fetch.post(url, {
       action: 'add',
@@ -44,6 +54,18 @@ const store = SubX.create({
       return true
     }
     return false
+  },
+  async getUser () {
+    store.fetchingUser = true
+    await fetch.post(window.rc.server + '/api/action', {
+      action: 'get-user'
+    }, {
+      handleErr: () => {
+        console.log('fetch user error')
+        window.location.href = window.rc.redirect
+      }
+    })
+    store.fetchingUser = false
   }
 })
 

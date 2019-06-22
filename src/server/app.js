@@ -8,7 +8,8 @@ import { generate } from 'shortid'
 import copy from 'json-deep-copy'
 import _ from 'lodash'
 import express from 'express'
-import prefix from 'ringcentral-personal-chatbot/dist/server/common/extra-path'
+import { extraPath, jwtPrefix } from 'ringcentral-personal-chatbot/dist/server/common/constants'
+import { jwtAuth } from 'ringcentral-personal-chatbot'
 
 const pack = require(resolve(__dirname, '../../package.json'))
 const viewPath = resolve(__dirname, '../views/index.pug')
@@ -22,24 +23,10 @@ export default (app) => {
   )
 
   app.get('/skill/faq/setting', async (req, res) => {
-    let { user, id: sid } = req.session || {}
-    let { id } = user || {}
-    if (!id) {
-      return res.redirect(prefix + SERVER_HOME)
-    }
-    await Faq.sync()
-    let faqs = await Faq.findAll({
-      where: {
-        user_id: id
-      }
-    }).map(r => r.get({
-      plain: true
-    }))
     let data = {
-      user,
+      redirect: extraPath + SERVER_HOME,
       title: pack.name,
-      sessionId: sid,
-      faqs,
+      jwtPrefix,
       version: pack.version,
       server: RINGCENTRAL_CHATBOT_SERVER
     }
@@ -47,8 +34,8 @@ export default (app) => {
     res.render(viewPath, data)
   })
 
-  app.post('/skill/faq/op', async (req, res) => {
-    let { user } = req.session || {}
+  app.post('/skill/faq/op', jwtAuth, async (req, res) => {
+    let { user } = req
     let { id: userId } = user || {}
     if (!userId) {
       res.status(401)
@@ -63,7 +50,7 @@ export default (app) => {
       update
     } = req.body
     if (
-      !['add', 'update', 'del'].includes(action) ||
+      !['add', 'update', 'del', 'list'].includes(action) ||
       (id && !_.isString(id)) ||
       (action === 'add' && !_.isPlainObject(update)) ||
       (action === 'update' && (!_.isPlainObject(update) || !id)) ||
@@ -76,7 +63,15 @@ export default (app) => {
       })
     }
     let result
-    if (action === 'del') {
+    if (action === 'list') {
+      result = await Faq.findAll({
+        where: {
+          user_id: id
+        }
+      }).map(r => r.get({
+        plain: true
+      }))
+    } else if (action === 'del') {
       result = await Faq.destroy({
         where: {
           id: id,
