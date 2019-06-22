@@ -5,8 +5,12 @@ import Faqs from './faqs'
 
 export default class App extends Component {
   componentDidMount () {
-    this.props.store.getUser()
-    this.props.store.list()
+    this.init()
+  }
+
+  init = async () => {
+    await this.props.store.getUser()
+    await this.props.store.list()
   }
 
   render () {
