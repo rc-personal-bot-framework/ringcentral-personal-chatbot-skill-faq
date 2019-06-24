@@ -66,7 +66,7 @@ export default (app) => {
     if (action === 'list') {
       result = await Faq.findAll({
         where: {
-          user_id: id
+          user_id: userId
         }
       }).map(r => r.get({
         plain: true
