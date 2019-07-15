@@ -1,6 +1,6 @@
 # ringcentral-personal-chatbot-skill-faq
 
-Simple FAQ bot matching by keywords for [ringcentral-personal-chatbot-js](https://github.com/rc-personal-bot-framework/ringcentral-personal-chatbot-js).
+Simple FAQ bot matching by keywords for [ringcentral-personal-chatbot-js](https://github.com/ringcentral/ringcentral-personal-chatbot-js).
 
 ![ ](screenshots/setting.png)
 ![ ](screenshots/s1.png)
