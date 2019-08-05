@@ -45,14 +45,14 @@ class AddFaq extends Component {
           <Row>
             <Col span={9}>
               <div className='pd1x pd1y'>
-                <FormItem label='Keywords(split by ",")'>
+                <FormItem label='Keywords, separate by ","(English comma)'>
                   {
                     getFieldDecorator('keywords', {
                       initialValue: keywords,
                       rules: [
                         {
                           required: true,
-                          message: 'Please input your keywords, seprate by space'
+                          message: 'Please input your keywords, separate by ","(English comma)'
                         }
                       ]
                     })(
