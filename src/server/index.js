@@ -1,9 +1,13 @@
 import Faq from './model'
 import extendApp from './app'
 
+const { RINGCENTRAL_CHATBOT_SERVER, SERVER_HOME = '/' } = process.env
+const appHome = RINGCENTRAL_CHATBOT_SERVER + SERVER_HOME
 export const name = 'Bot skill: FAQ'
 export const description = 'Respond to any keywords user defined with corresponding answer'
-export const homepage = 'https://github.com/rc-personal-bot-framework/ringcentral-personal-chatbot-skill-faq#readme'
+export const homepage = RINGCENTRAL_CHATBOT_SERVER
+  ? appHome
+  : 'https://github.com/rc-personal-bot-framework/ringcentral-personal-chatbot-skill-faq#readme'
 
 function dequote (str = '') {
   return str.slice(1, -1)
