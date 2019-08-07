@@ -1,6 +1,6 @@
 {
   "name": "ringcentral-personal-chatbot-skill-faq",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "description": "Bot skill: FAQ, respond to any keywords user defined with corresponding answer",
   "main": "dist/server/index.js",
   "scripts": {
@@ -14,7 +14,8 @@
     "view": "node build/view.js",
     "build": "npm run clean && npm run compile && npm run release && npm run view",
     "clean": "node build/clean.js",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "i": "npm i && npm i ringcentral-personal-chatbot"
   },
   "keywords": [
     "RingCentral",
