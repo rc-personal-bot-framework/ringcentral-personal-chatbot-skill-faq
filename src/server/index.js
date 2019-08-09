@@ -1,5 +1,6 @@
 import Faq from './model'
 import extendApp from './app'
+import Sequelize, { QueryInterface } from 'sequelize'
 
 const { RINGCENTRAL_CHATBOT_SERVER, SERVER_HOME = '/' } = process.env
 const appHome = RINGCENTRAL_CHATBOT_SERVER + SERVER_HOME
@@ -46,6 +47,12 @@ export const onPostAdd = async ({
   if (handled) {
     return false
   }
+  await QueryInterface.changeColumn('faq', 'keywords', {
+    type: Sequelize.TEXT
+  })
+  await QueryInterface.changeColumn('faq', 'answer', {
+    type: Sequelize.TEXT
+  })
   await Faq.sync()
   let faqs = await Faq.findAll({
     where: {

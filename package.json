@@ -1,6 +1,6 @@
 {
   "name": "ringcentral-personal-chatbot-skill-faq",
-  "version": "0.5.6",
+  "version": "0.5.7",
   "description": "Bot skill: FAQ, respond to any keywords user defined with corresponding answer",
   "main": "dist/server/index.js",
   "scripts": {
