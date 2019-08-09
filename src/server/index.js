@@ -1,6 +1,11 @@
 import Faq from './model'
 import extendApp from './app'
-import Sequelize, { QueryInterface } from 'sequelize'
+import sequelize from 'ringcentral-personal-chatbot/dist/server/models/sequelize'
+
+sequelize.query('ALTER TABLE faqs ALTER COLUMN keywords TYPE text;', { raw: true })
+sequelize.query('ALTER TABLE faqs ALTER COLUMN answer TYPE text;', { raw: true })
+
+Faq.sync()
 
 const { RINGCENTRAL_CHATBOT_SERVER, SERVER_HOME = '/' } = process.env
 const appHome = RINGCENTRAL_CHATBOT_SERVER + SERVER_HOME
@@ -47,12 +52,7 @@ export const onPostAdd = async ({
   if (handled) {
     return false
   }
-  await QueryInterface.changeColumn('faq', 'keywords', {
-    type: Sequelize.TEXT
-  })
-  await QueryInterface.changeColumn('faq', 'answer', {
-    type: Sequelize.TEXT
-  })
+
   await Faq.sync()
   let faqs = await Faq.findAll({
     where: {

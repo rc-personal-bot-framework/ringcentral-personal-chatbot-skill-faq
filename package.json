@@ -1,6 +1,6 @@
 {
   "name": "ringcentral-personal-chatbot-skill-faq",
-  "version": "0.5.7",
+  "version": "0.5.8",
   "description": "Bot skill: FAQ, respond to any keywords user defined with corresponding answer",
   "main": "dist/server/index.js",
   "scripts": {
@@ -15,7 +15,7 @@
     "build": "npm run clean && npm run compile && npm run release && npm run view",
     "clean": "node build/clean.js",
     "prepublishOnly": "npm run build",
-    "i": "npm i && npm i ringcentral-personal-chatbot"
+    "i": "npm i && npm i ringcentral-personal-chatbot --no-save"
   },
   "keywords": [
     "RingCentral",
@@ -57,8 +57,7 @@
     "url-loader": "^1.1.2",
     "webpack": "^4.31.0",
     "webpack-cli": "^3.3.2",
-    "webpack-dev-server": "^3.3.1",
-    "yarn-upgrade-all": "^0.5.0"
+    "webpack-dev-server": "^3.3.1"
   },
   "dependencies": {
     "shortid": "^2.2.14"
