@@ -1,9 +1,5 @@
 import Faq from './model'
 import extendApp from './app'
-import sequelize from 'ringcentral-personal-chatbot/dist/server/models/sequelize'
-
-sequelize.query('ALTER TABLE faqs ALTER COLUMN keywords TYPE text;', { raw: true })
-sequelize.query('ALTER TABLE faqs ALTER COLUMN answer TYPE text;', { raw: true })
 
 Faq.sync()
 
