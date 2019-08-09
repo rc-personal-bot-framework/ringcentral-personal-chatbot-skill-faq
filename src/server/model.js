@@ -11,10 +11,10 @@ export default sequelize.define('faq', {
     type: Sequelize.STRING
   },
   answer: { // Glip user email
-    type: Sequelize.STRING
+    type: Sequelize.TEXT
   },
   keywords: { // Glip user email
-    type: Sequelize.STRING
+    type: Sequelize.TEXT
   },
   token: { // user token
     type: Sequelize.JSON
