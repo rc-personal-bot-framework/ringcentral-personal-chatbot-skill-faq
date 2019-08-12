@@ -9,8 +9,10 @@ export default class App extends Component {
   }
 
   init = async () => {
-    await this.props.store.getUser()
-    await this.props.store.list()
+    let res = await this.props.store.getUser()
+    if (res) {
+      await this.props.store.list()
+    }
   }
 
   render () {
@@ -18,7 +20,7 @@ export default class App extends Component {
     return (
       <Spin spinning={store.fetchingUser}>
         <div className='wrap'>
-          <div className="pd1y">
+          <div className='pd1y'>
             <a href={window.rc.redirect}>
               <Icon type='home' /> Back to App home
             </a>
