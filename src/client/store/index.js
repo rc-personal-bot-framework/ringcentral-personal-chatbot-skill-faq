@@ -58,7 +58,7 @@ const store = SubX.create({
   },
   async getUser () {
     store.fetchingUser = true
-    await fetch.post(window.rc.server + '/api/action', {
+    let r = await fetch.post(window.rc.server + '/api/action', {
       action: 'get-user'
     }, {
       handleErr: () => {
@@ -88,6 +88,7 @@ const store = SubX.create({
       }
     })
     store.fetchingUser = false
+    return r
   }
 })
 
