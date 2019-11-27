@@ -43,7 +43,7 @@ export const onPostAdd = async ({
   group,
   user,
   handled, // hanlded by prev skills
-  shouldUseSignature // should use signature like "send by bot skill xxx" in message.
+  shouldUseSignature // should use signature like "sent by bot skill xxx" in message.
 }) => {
   if (handled) {
     return false
@@ -85,7 +85,7 @@ export const onPostAdd = async ({
   }
   if (res) {
     let sign = shouldUseSignature
-      ? `\n(send by [${exports.name}](${exports.homepage}))`
+      ? `\n(sent by [${exports.name}](${exports.homepage}))`
       : ''
     await user.sendMessage(group.id, {
       text: res + sign
