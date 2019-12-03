@@ -74,7 +74,8 @@ export default class Faqs extends Component {
       {
         title: 'Keywords',
         dataIndex: 'keywords',
-        key: 'keywords'
+        key: 'keywords',
+        sorter: (a, b) => a.count > b.count ? 1 : -1
       },
       {
         title: 'Answer',
