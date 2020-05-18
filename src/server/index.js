@@ -75,7 +75,7 @@ export const onPostAdd = async ({
   }
   if (!res && textFiltered === 'faq-help') {
     let cmds = faqs
-      .sort((a, b) => b.keywords > a.keywords ? -1 : 1)
+      .sort((a, b) => b.keywords.toLowerCase() > a.keywords.toLowerCase() ? -1 : 1)
       .map(f => f.keywords)
       .reduce((p, k) => {
         return p + `* ${k}\n`
