@@ -50,13 +50,12 @@ export const onPostAdd = async ({
   }
 
   await Faq.sync()
-  let faqs = await Faq.findAll({
-    where: {
-      user_id: user.id
+  const q = user.data.map(id => {
+    return {
+      id
     }
-  }).map(r => r.get({
-    plain: true
-  }))
+  })
+  let faqs = await Faq.batchGet(q)
   let res = ''
 
   for (let faq of faqs) {

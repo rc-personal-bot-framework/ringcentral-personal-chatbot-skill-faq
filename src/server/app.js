@@ -8,6 +8,7 @@ import { generate } from 'shortid'
 import copy from 'json-deep-copy'
 import _ from 'lodash'
 import express from 'express'
+import { Service as User } from 'ringcentral-personal-chatbot/dist/server/models/Service'
 import { extraPath, jwtPrefix, defaultState, authUrlDefault } from 'ringcentral-personal-chatbot/dist/server/common/constants'
 import { jwtAuth } from 'ringcentral-personal-chatbot'
 
@@ -49,7 +50,8 @@ export default (app) => {
     let {
       id,
       action,
-      update
+      update,
+      ids
     } = req.body
     if (
       !['add', 'update', 'del', 'list'].includes(action) ||
@@ -66,18 +68,27 @@ export default (app) => {
     }
     let result
     if (action === 'list') {
-      result = await Faq.findAll({
-        where: {
-          user_id: userId
+      const q = ids.map(id => {
+        return {
+          id
         }
-      }).map(r => r.get({
-        plain: true
-      }))
+      })
+      result = await Faq.batchGet(q)
     } else if (action === 'del') {
+      const user = User.findByPk(userId)
+      if (user) {
+        const nd = copy(user.data).filter(d => d !== id)
+        await User.update({
+          data: nd
+        }, {
+          where: {
+            id: userId
+          }
+        })
+      }
       result = await Faq.destroy({
         where: {
-          id: id,
-          user_id: userId
+          id
         }
       })
     } else if (action === 'add') {
@@ -86,11 +97,21 @@ export default (app) => {
         id: generate(),
         user_id: userId
       })
+      const user = User.findByPk(userId)
+      if (user) {
+        const nd = _.uniq([...copy(user.data || []), id])
+        await User.update({
+          data: nd
+        }, {
+          where: {
+            id: userId
+          }
+        })
+      }
     } else if (action === 'update') {
       result = await Faq.update(update, {
         where: {
-          id,
-          user_id: userId
+          id
         }
       })
     }

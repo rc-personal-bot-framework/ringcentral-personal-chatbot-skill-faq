@@ -3,20 +3,20 @@ import Sequelize from 'sequelize'
 import sequelize from 'ringcentral-personal-chatbot/dist/server/models/sequelize'
 
 export default sequelize.define('faq', {
-  id: { // Glip user ID
+  id: { // ID
     type: Sequelize.STRING,
     primaryKey: true
   },
-  user_id: { // glip user name
+  user_id: { // glip user id
     type: Sequelize.STRING
   },
-  answer: { // Glip user email
+  answer: {
     type: Sequelize.TEXT
   },
-  keywords: { // Glip user email
+  keywords: {
     type: Sequelize.TEXT
   },
-  token: { // user token
+  token: {
     type: Sequelize.JSON
   },
   enabled: {

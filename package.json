@@ -1,6 +1,6 @@
 {
   "name": "ringcentral-personal-chatbot-skill-faq",
-  "version": "0.5.17",
+  "version": "0.7.0",
   "description": "Bot skill: FAQ, respond to any keywords user defined with corresponding answer",
   "main": "dist/server/index.js",
   "scripts": {
@@ -63,7 +63,7 @@
     "shortid": "^2.2.14"
   },
   "peerDependencies": {
-    "ringcentral-personal-chatbot": ">=0.10.7"
+    "ringcentral-personal-chatbot": ">=0.12.0-b1"
   },
   "standard": {
     "parser": "babel-eslint",
