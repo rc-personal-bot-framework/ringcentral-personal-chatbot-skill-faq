@@ -1,6 +1,7 @@
 import { Component } from 'react'
 import FaqForm from './faq-form'
-import { Col, Row, Icon, Popconfirm, Spin } from 'antd'
+import { Col, Row, Popconfirm, Spin } from 'antd'
+import { MinusCircleOutlined, EditOutlined } from '@ant-design/icons'
 
 export default class Faqs extends Component {
   state = {
@@ -77,16 +78,14 @@ export default class Faqs extends Component {
           </Col>
           <Col span={6} className='faq-op'>
             <div className='pd1x pd1y'>
-              <Icon
-                type='edit'
+              <EditOutlined
                 className='font16 mg1l pointer'
                 onClick={this.edit}
               />
               <Popconfirm
                 onConfirm={this.del}
               >
-                <Icon
-                  type='minus-circle'
+                <MinusCircleOutlined
                   className='font16 color-red mg1l pointer'
                 />
               </Popconfirm>

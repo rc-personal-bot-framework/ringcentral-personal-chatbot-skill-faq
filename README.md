@@ -7,6 +7,8 @@ Simple FAQ bot matching by keywords for [ringcentral-personal-chatbot-js](https:
 
 ## Quick start
 
+First, need create a AWS account, we will use free AWS dynamodb, and put your aws credentials in `~/.aws/credentials`, check [https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html)
+
 Let's start a simple chatbot server and login to it with you sandbox glip account, and you account will auto respond to keywords set by you.
 
 ```bash
