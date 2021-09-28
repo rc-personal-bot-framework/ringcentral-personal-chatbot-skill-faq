@@ -51,7 +51,7 @@ export default (app) => {
       id,
       action,
       update,
-      ids
+      faqIds = []
     } = req.body
     if (
       !['add', 'update', 'del', 'list'].includes(action) ||
@@ -66,20 +66,39 @@ export default (app) => {
         error: 'params not right'
       })
     }
+    if (!userId.startsWith(userId)) {
+      return res.status(400).send({
+        status: 1,
+        error: 'params not right'
+      })
+    }
     let result
     if (action === 'list') {
-      const q = ids.map(id => {
-        return {
-          id
-        }
-      })
-      result = await Faq.batchGet(q)
+      if (!faqIds.length) {
+        result = []
+      } else {
+        const q = faqIds
+          .filter(f => {
+            return f.startsWith(userId)
+          })
+          .map(id => {
+            return {
+              id
+            }
+          })
+        result = await Faq.batchGet(q)
+      }
     } else if (action === 'del') {
-      const user = User.findByPk(userId)
+      const user = await User.findByPk(userId)
       if (user) {
-        const nd = copy(user.data).filter(d => d !== id)
+        const nd = copy(
+          _.get(user, 'data.faqIds') || []
+        ).filter(d => d !== id)
         await User.update({
-          data: nd
+          data: {
+            ...(user.data || {}),
+            faqIds: nd
+          }
         }, {
           where: {
             id: userId
@@ -92,16 +111,23 @@ export default (app) => {
         }
       })
     } else if (action === 'add') {
+      const uid = userId + '-' + generate()
       result = await Faq.create({
         ...update,
-        id: generate(),
+        id: uid,
         user_id: userId
       })
-      const user = User.findByPk(userId)
+      const user = await User.findByPk(userId)
       if (user) {
-        const nd = _.uniq([...copy(user.data || []), id])
+        const nd = _.uniq([
+          ...copy(_.get(user, 'data.faqIds') || []),
+          uid
+        ])
         await User.update({
-          data: nd
+          data: {
+            ...(user.data || {}),
+            faqIds: nd
+          }
         }, {
           where: {
             id: userId

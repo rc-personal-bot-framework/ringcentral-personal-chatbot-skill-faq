@@ -9,10 +9,15 @@ const store = SubX.create({
   faqs: [],
   fetchingUser: false,
   loading: false,
+  user: {},
   async list () {
     store.fetchingUser = true
     let res = await fetch.post(url, {
-      action: 'list'
+      action: 'list',
+      faqIds: _.get(
+        store.user,
+        'data.faqIds'
+      ) || []
     })
     store.fetchingUser = false
     if (res && res.result) {

@@ -1,7 +1,8 @@
 import { Component } from 'react-subx'
-import { Spin, Icon } from 'antd'
+import { Spin } from 'antd'
 import AddFaq from './add-faq'
 import Faqs from './faqs'
+import { HomeOutlined } from '@ant-design/icons'
 
 export default class App extends Component {
   componentDidMount () {
@@ -11,6 +12,7 @@ export default class App extends Component {
   init = async () => {
     let res = await this.props.store.getUser()
     if (res) {
+      this.props.store.user = res.result
       await this.props.store.list()
     }
   }
@@ -22,7 +24,7 @@ export default class App extends Component {
         <div className='wrap'>
           <div className='pd1y'>
             <a href={window.rc.redirect}>
-              <Icon type='home' /> Back to App home
+              <HomeOutlined /> Back to App home
             </a>
           </div>
           <h1>FAQ skill setting</h1>

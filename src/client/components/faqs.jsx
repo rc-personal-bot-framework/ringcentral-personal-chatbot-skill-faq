@@ -1,6 +1,7 @@
 import { Component } from 'react-subx'
-import { Table, Popconfirm, Icon, Spin, Modal } from 'antd'
+import { Table, Popconfirm, Spin, Modal } from 'antd'
 import FaqForm from './faq-form'
+import { MinusCircleOutlined, EditOutlined } from '@ant-design/icons'
 
 export default class Faqs extends Component {
   state = {
@@ -89,16 +90,14 @@ export default class Faqs extends Component {
         render: (text, faq) => {
           return (
             <div>
-              <Icon
-                type='edit'
+              <EditOutlined
                 className='font16 mg1l pointer'
                 onClick={() => this.edit(faq)}
               />
               <Popconfirm
                 onConfirm={() => this.del(faq)}
               >
-                <Icon
-                  type='minus-circle'
+                <MinusCircleOutlined
                   className='font16 color-red mg1l pointer'
                 />
               </Popconfirm>

@@ -50,12 +50,17 @@ export const onPostAdd = async ({
   }
 
   await Faq.sync()
-  const q = user.data.map(id => {
+  const faqIds = user.data && user.data.faqIds
+    ? user.data.faqIds
+    : []
+  const q = faqIds.map(id => {
     return {
       id
     }
   })
-  let faqs = await Faq.batchGet(q)
+  let faqs = !q.length
+    ? []
+    : await Faq.batchGet(q)
   let res = ''
 
   for (let faq of faqs) {

@@ -59,7 +59,7 @@ export default class Faqs extends Component {
   }
 
   renderView () {
-    let { keywords, answer, count } = this.props.faq
+    let { keywords, answer, count = 0 } = this.props.faq
     let { index } = this.props
     return (
       <Spin spinning={this.state.updating}>
