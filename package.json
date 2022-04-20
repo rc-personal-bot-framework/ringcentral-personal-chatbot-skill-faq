@@ -91,7 +91,6 @@
   "homepage": "https://github.com/rc-personal-bot-framework/ringcentral-personal-chatbot-skill-faq#readme",
   "files": [
     "dist",
-    "src",
     "README.md"
   ]
 }
