@@ -1,21 +1,32 @@
 
 const { env } = process
-const devPort = env.devPort || 6066
-const host = env.host || '127.0.0.1'
+const logger = require('morgan')
+const devPort = env.DEV_PORT || 6066
+const host = env.SERVER_HOST || '127.0.0.1'
 
 module.exports = {
-  contentBase: '../deploy/dist/static',
+  allowedHosts: 'all',
+  headers: {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+  },
   historyApiFallback: true,
   hot: true,
-  inline: true,
   host,
   port: devPort,
-  disableHostCheck: true,
+  client: {
+    logging: 'log'
+  },
+  onBeforeSetupMiddleware: function (devServer) {
+    devServer.app.use(
+      logger('tiny')
+    )
+  },
   proxy: {
     '/': {
       target: `http://${env.SERVER_HOST}:${env.SERVER_PORT}`,
       bypass: function (req, res, proxyOptions) {
-        if (req.path.includes('rcpbs-faq')) {
+        if (req.path.includes('.bundle.')) {
           return req.path
         }
       }

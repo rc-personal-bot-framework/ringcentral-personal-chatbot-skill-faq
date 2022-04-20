@@ -4,16 +4,16 @@
 
 import { resolve } from 'path'
 import Faq from './model'
-import { generate } from 'shortid'
+import { nanoid } from 'nanoid'
 import copy from 'json-deep-copy'
 import _ from 'lodash'
 import express from 'express'
-import { Service as User } from 'ringcentral-personal-chatbot/dist/server/models/Service'
-import { extraPath, jwtPrefix, defaultState, authUrlDefault } from 'ringcentral-personal-chatbot/dist/server/common/constants'
+import { User } from 'ringcentral-personal-chatbot/dist/server/models/ringcentral'
+import { extraPath, jwtPrefix, defaultState, loginUrl } from 'ringcentral-personal-chatbot/dist/server/common/constants'
 import { jwtAuth } from 'ringcentral-personal-chatbot'
 
 const pack = require(resolve(__dirname, '../../package.json'))
-const viewPath = resolve(__dirname, '../views/index.pug')
+const viewPath = resolve(__dirname, 'views/index.pug')
 const staticPath = resolve(__dirname, '../../dist/static')
 
 const { RINGCENTRAL_CHATBOT_SERVER, SERVER_HOME } = process.env
@@ -24,13 +24,14 @@ export default (app) => {
   )
 
   app.get('/skill/faq/setting', async (req, res) => {
-    let data = {
+    const url = await loginUrl()
+    const data = {
       redirect: extraPath + SERVER_HOME,
       title: pack.name,
       jwtPrefix,
       version: pack.version,
       defaultState,
-      authUrlDefault,
+      authUrlDefault: url,
       server: RINGCENTRAL_CHATBOT_SERVER
     }
     data._global = copy(data)
@@ -38,8 +39,8 @@ export default (app) => {
   })
 
   app.post('/skill/faq/op', jwtAuth, async (req, res) => {
-    let { user } = req
-    let { id: userId } = user || {}
+    const { user } = req
+    const { id: userId } = user || {}
     if (!userId) {
       res.status(401)
       return res.send({
@@ -47,7 +48,7 @@ export default (app) => {
         msg: 'please login first'
       })
     }
-    let {
+    const {
       id,
       action,
       update,
@@ -111,7 +112,7 @@ export default (app) => {
         }
       })
     } else if (action === 'add') {
-      const uid = userId + '-' + generate()
+      const uid = userId + '-' + nanoid(7)
       result = await Faq.create({
         ...update,
         id: uid,
@@ -141,7 +142,7 @@ export default (app) => {
         }
       })
     }
-    let data = {
+    const data = {
       status: 0,
       result
     }

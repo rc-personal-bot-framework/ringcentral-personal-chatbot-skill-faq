@@ -1,4 +1,4 @@
-import { Component } from 'react-subx'
+import { Component } from 'react'
 import { Table, Popconfirm, Spin, Modal } from 'antd'
 import FaqForm from './faq-form'
 import { MinusCircleOutlined, EditOutlined } from '@ant-design/icons'
@@ -9,7 +9,7 @@ export default class Faqs extends Component {
   }
 
   del = (faq) => {
-    this.props.store.del(faq.id)
+    this.props.del(faq.id)
   }
 
   edit = faq => {
@@ -18,20 +18,28 @@ export default class Faqs extends Component {
     })
   }
 
-  cancelEdit = () => {
+  handleCancelEdit = () => {
     this.setState({
       editting: false
     })
   }
 
-  submit = async (update, callback) => {
-    let faq = this.state.editting
-    this.props.store.loading = true
-    let res = await this.props.store.update(
+  handleSubmit = async (update, callback) => {
+    const faq = this.state.editting
+    this.props.updateState(
+      {
+        loading: true
+      }
+    )
+    const res = await this.props.updateFaq(
       faq.id,
       update
     )
-    this.props.store.loading = false
+    this.props.updateState(
+      {
+        loading: false
+      }
+    )
     this.setState({
       editting: res ? false : faq
     })
@@ -49,18 +57,18 @@ export default class Faqs extends Component {
   }
 
   render () {
-    let { faqs, loading } = this.props.store
+    const { faqs, loading } = this.props
     if (!faqs.length) {
       return this.empty()
     }
-    let { editting } = this.state
-    let src = faqs.map((f, i) => {
+    const { editting } = this.state
+    const src = faqs.map((f, i) => {
       return {
         ...f,
         index: i + 1
       }
     })
-    let columns = [
+    const columns = [
       {
         title: 'Index',
         dataIndex: 'index',
@@ -112,17 +120,17 @@ export default class Faqs extends Component {
           visible={!!editting}
           title='Edit FAQ Item'
           footer={null}
-          onCancel={this.cancelEdit}
+          onCancel={this.handleCancelEdit}
         >
           <FaqForm
             submitting={loading}
             faq={editting}
-            onSubmit={this.submit}
-            onCancel={this.cancelEdit}
+            onSubmit={this.handleSubmit}
+            onCancel={this.handleCancelEdit}
             submitText='Update'
           />
         </Modal>
-        <Spin spinning={this.props.store.loading}>
+        <Spin spinning={this.props.loading}>
           <Table
             dataSource={src}
             columns={columns}

@@ -40,13 +40,12 @@ module.exports = [
           lessOptions: {
             javascriptEnabled: true
           }
-          // modifyVars: theme
         }
       }
     ]
   },
   {
     test: /\.(png|jpg|svg)$/,
-    use: ['url-loader?limit=1&name=images/[name].[ext]']
+    use: ['url-loader?limit=1&name=images/[name].bundle.[ext]']
   }
 ]

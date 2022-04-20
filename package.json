@@ -1,6 +1,6 @@
 {
   "name": "ringcentral-personal-chatbot-skill-faq",
-  "version": "0.7.8",
+  "version": "1.0.0",
   "description": "Bot skill: FAQ, respond to any keywords user defined with corresponding answer",
   "main": "dist/server/index.js",
   "scripts": {
@@ -9,13 +9,15 @@
     "start": "node -r @babel/register ./node_modules/.bin/rcpf build/test-bot.js",
     "c": "./node_modules/.bin/webpack serve --progress --config build/webpack.config.js",
     "compile": "babel src/server --out-dir dist/server",
-    "release": "cross-env NODE_ENV=production ./node_modules/.bin/webpack --progress --config build/webpack.config.js",
+    "release": "NODE_ENV=production ./node_modules/.bin/webpack --progress --config build/webpack.config.js",
     "p": "node ./node_modules/.bin/rcpf build/test-bot.js",
+    "dynamo": "node -r @babel/register build/dynamo-local.js",
     "view": "node build/view.js",
     "build": "npm run clean && npm run compile && npm run release && npm run view",
     "clean": "node build/clean.js",
     "prepublishOnly": "npm run build",
-    "i": "npm i && npm i ringcentral-personal-chatbot --no-save"
+    "lint": "./node_modules/.bin/standard",
+    "fix": "./node_modules/.bin/standard --fix"
   },
   "keywords": [
     "RingCentral",
@@ -25,50 +27,53 @@
   "author": "Drake Zhao <drake.zhao@ringcentral.com>",
   "license": "MIT",
   "devDependencies": {
-    "@ant-design/icons": "^4.6.2",
-    "@babel/cli": "7.14.5",
-    "@babel/core": "7.14.6",
-    "@babel/plugin-proposal-class-properties": "7.14.5",
-    "@babel/plugin-proposal-decorators": "7.14.5",
+    "@ant-design/icons": "4.7.0",
+    "@babel/cli": "7.17.6",
+    "@babel/core": "7.17.9",
+    "@babel/plugin-proposal-class-properties": "7.16.7",
+    "@babel/plugin-proposal-decorators": "7.17.9",
     "@babel/plugin-syntax-dynamic-import": "7.8.3",
-    "@babel/plugin-transform-runtime": "7.14.5",
-    "@babel/preset-env": "7.14.7",
-    "@babel/preset-react": "7.14.5",
-    "@babel/register": "7.14.5",
-    "antd": "^4.10.3",
-    "antd-dayjs-webpack-plugin": "^1.0.6",
-    "babel-eslint": "10.0.3",
-    "babel-loader": "8.0.6",
-    "babel-plugin-import": "1.13.0",
-    "babel-plugin-lodash": "^3.3.4",
-    "cross-env": "^5.2.0",
-    "css-loader": "5.2.6",
-    "css-minimizer-webpack-plugin": "3.0.2",
+    "@babel/plugin-transform-runtime": "7.17.0",
+    "@babel/preset-env": "7.16.11",
+    "@babel/preset-react": "7.16.7",
+    "@babel/register": "7.17.7",
+    "@electerm/antd-dayjs-webpack-plugin": "1.0.7",
+    "@electerm/pug-html-loader": "1.1.6",
+    "antd": "4.19.5",
+    "babel-eslint": "10.1.0",
+    "babel-loader": "8.2.4",
+    "babel-plugin-import": "1.13.3",
+    "babel-plugin-lodash": "3.3.4",
+    "css-loader": "6.7.1",
+    "css-minimizer-webpack-plugin": "3.4.1",
+    "dayjs": "1.11.0",
+    "dotenv": "10.0.0",
+    "dynamodb-local": "0.0.31",
     "file-loader": "6.2.0",
-    "json-deep-copy": "^1.1.6",
-    "less": "^4.1.1",
-    "less-loader": "10.0.1",
-    "lodash-webpack-plugin": "^0.11.5",
-    "mini-css-extract-plugin": "0.9.0",
-    "ngrok": "^3.3.0",
-    "optimize-css-assets-webpack-plugin": "^5.0.1",
-    "react-subx": "0.9.0",
-    "serverless": "^2.3.0",
+    "json-deep-copy": "^1.1.8",
+    "less": "4.1.2",
+    "less-loader": "10.2.0",
+    "mini-css-extract-plugin": "2.6.0",
+    "ngrok": "4.3.1",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "serverless": "3.12.0",
+    "serverless-deployment-bucket": "1.5.2",
     "shelljs": "^0.8.4",
-    "standard": "14.3.1",
-    "stylus": "^0.54.8",
-    "stylus-loader": "6.1.0",
-    "subx": "^0.10.1",
+    "standard": "16.0.4",
+    "style-loader": "3.3.1",
+    "stylus": "0.56.0",
+    "stylus-loader": "^6.2.0",
     "url-loader": "4.1.1",
-    "webpack": "5.42.0",
-    "webpack-cli": "4.7.2",
-    "webpack-dev-server": "^3.11.2"
+    "webpack": "5.72.0",
+    "webpack-cli": "4.9.2",
+    "webpack-dev-server": "4.8.1"
   },
   "dependencies": {
-    "shortid": "^2.2.14"
+    "nanoid": "^3.3.3"
   },
   "peerDependencies": {
-    "ringcentral-personal-chatbot": ">=0.12.2"
+    "ringcentral-personal-chatbot": "1.0.0"
   },
   "standard": {
     "parser": "babel-eslint",
@@ -83,5 +88,10 @@
   "bugs": {
     "url": "https://github.com/rc-personal-bot-framework/ringcentral-personal-chatbot-skill-faq/issues"
   },
-  "homepage": "https://github.com/rc-personal-bot-framework/ringcentral-personal-chatbot-skill-faq#readme"
+  "homepage": "https://github.com/rc-personal-bot-framework/ringcentral-personal-chatbot-skill-faq#readme",
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ]
 }

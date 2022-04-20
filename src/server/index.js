@@ -23,7 +23,7 @@ function check (str, all) {
 }
 
 function hasKeywords (ks, txt) {
-  for (let k of ks) {
+  for (const k of ks) {
     if (
       (k.startsWith('"') && k.endsWith('"') && txt === dequote(k)) ||
       (
@@ -58,13 +58,13 @@ export const onPostAdd = async ({
       id
     }
   })
-  let faqs = !q.length
+  const faqs = !q.length
     ? []
     : await Faq.batchGet(q)
   let res = ''
 
-  for (let faq of faqs) {
-    let ks = faq.keywords.split(',').map(r => r.trim())
+  for (const faq of faqs) {
+    const ks = faq.keywords.split(',').map(r => r.trim())
     if (hasKeywords(ks, textFiltered)) {
       res = faq.answer
       await Faq.update({
@@ -88,7 +88,7 @@ export const onPostAdd = async ({
     res = `**Keywords list:**\n${cmds}`
   }
   if (res) {
-    let sign = shouldUseSignature
+    const sign = shouldUseSignature
       ? `\n(sent by [${exports.name}](${exports.homepage}))`
       : ''
     await user.sendMessage(group.id, {

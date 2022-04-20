@@ -9,21 +9,21 @@ export default class Faqs extends Component {
     updating: false
   }
 
-  edit = () => {
+  handleEdit = () => {
     this.setState({
       editting: true
     })
   }
 
-  del = () => {
-    this.props.store.del(this.props.faq.id)
+  handleDel = () => {
+    this.props.del(this.props.faq.id)
   }
 
-  submit = async (update, callback) => {
+  handleSubmit = async (update, callback) => {
     this.setState({
       updating: true
     })
-    let res = await this.props.store.update(
+    const res = await this.props.updateFaq(
       this.props.faq.id,
       update
     )
@@ -36,7 +36,7 @@ export default class Faqs extends Component {
     }
   }
 
-  cancelEdit = () => {
+  handleCancelEdit = () => {
     this.setState({
       editting: false
     })
@@ -49,8 +49,8 @@ export default class Faqs extends Component {
           <FaqForm
             submitting={this.state.updating}
             faq={this.props.faq}
-            onSubmit={this.submit}
-            onCancel={this.cancelEdit}
+            onSubmit={this.handleSubmit}
+            onCancel={this.handleCancelEdit}
             submitText='Update'
           />
         </div>
@@ -59,8 +59,8 @@ export default class Faqs extends Component {
   }
 
   renderView () {
-    let { keywords, answer, count = 0 } = this.props.faq
-    let { index } = this.props
+    const { keywords, answer, count = 0 } = this.props.faq
+    const { index } = this.props
     return (
       <Spin spinning={this.state.updating}>
         <Row className='faq-item'>
@@ -80,10 +80,10 @@ export default class Faqs extends Component {
             <div className='pd1x pd1y'>
               <EditOutlined
                 className='font16 mg1l pointer'
-                onClick={this.edit}
+                onClick={this.handleEdit}
               />
               <Popconfirm
-                onConfirm={this.del}
+                onConfirm={this.handleDel}
               >
                 <MinusCircleOutlined
                   className='font16 color-red mg1l pointer'

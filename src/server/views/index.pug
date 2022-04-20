@@ -20,4 +20,4 @@ html
       window.rc.onload = function() {
         document.body.removeChild(document.getElementById('content-loading'));
       };
-    script(src=server + '/js/rcpbs-faq.' + version + '.bundle.js', onload='window.rc.onload()')
+    script(src=server + '/js/rcpbs-faq.bundle.js?' + version, onload='window.rc.onload()')

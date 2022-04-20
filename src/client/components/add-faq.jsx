@@ -1,4 +1,4 @@
-import { Component } from 'react-subx'
+import { Component } from 'react'
 import FaqForm from './faq-form'
 
 export default class AddFaq extends Component {
@@ -7,11 +7,11 @@ export default class AddFaq extends Component {
     loading: false
   }
 
-  onSubmit = async (update, callback) => {
+  handleSubmit = async (update, callback) => {
     this.setState({
       loading: true
     })
-    let res = await this.props.store.add(update)
+    const res = await this.props.add(update)
     this.setState({
       loading: false
     })
@@ -24,7 +24,7 @@ export default class AddFaq extends Component {
     return (
       <div className='pd1b'>
         <FaqForm
-          onSubmit={this.onSubmit}
+          onSubmit={this.handleSubmit}
           submitting={this.state.loading}
           submitText='Add new FAQ'
         />
