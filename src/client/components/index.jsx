@@ -30,6 +30,10 @@ export default class App extends Component {
     this.init()
   }
 
+  updateState = (...args) => {
+    this.setState(...args)
+  }
+
   init = async () => {
     const res = await this.getUser()
     if (res && res.result) {
@@ -216,7 +220,7 @@ export default class App extends Component {
             del={this.del}
             faqs={this.state.faqs}
             loading={this.state.loading}
-            updateState={this.setState}
+            updateState={this.updateState}
           />
           {this.renderFooter()}
         </div>
